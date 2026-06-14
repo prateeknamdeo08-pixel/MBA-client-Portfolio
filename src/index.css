@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Print-specific layout control */
+@media print {
+  /* Hide absolutely everything by default to prevent overlapping screen elements */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Make only the printable resume container and its direct children visible */
+  #printable-resume-container,
+  #printable-resume-container * {
+    visibility: visible !important;
+  }
+  
+  /* Reset document and format standard A4 paper dimensions */
+  html, body {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #1e293b !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Make the exact element layout full-bleed standard A4 */
+  #printable-resume-container {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    padding: 10mm !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 9999999 !important;
+    background: white !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Keep left side column matching screen look */
+  #printable-resume-container > div:first-child {
+    width: 35% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    border-right-width: 1px !important;
+    border-right-color: #f1f5f9 !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Keep right side matching screen look */
+  #printable-resume-container > div:last-child {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+
+  /* Force display headings/colors exactly as configured */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
